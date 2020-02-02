@@ -1,0 +1,57 @@
+﻿@model ProductSliderSettingsModel
+@using Nop.Web.Framework.UI;
+@{
+    Layout = "_ConfigurePlugin";
+
+    //page title
+    ViewBag.Title = T("Plugins.Widgets.RevolutionProductsSlider.ProductSliders.AddNew").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("ProductsSliderSettings");
+}
+
+<form asp-controller="WidgetsProductSlider" asp-action="Settings" method="post" id="setting-form">
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Plugins.Widgets.ProductsSlider.ProductSliders.AddNew")
+            <small>
+                <i class="fa fa-arrow-circle-left"></i>
+                <a asp-action="List">@T("plugins.widgets.productsslider.backtolist")</a>
+            </small>
+        </h1>
+        <div class="pull-right">
+            <button type="submit" name="save" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.Save")
+            </button>
+            <button type="submit" name="save-continue" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.SaveContinue")
+            </button>
+            @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_category_details_buttons" })*@
+        </div>
+    </div>
+    <div asp-validation-summary="All"></div>
+    <div class="form-horizontal">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+        
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <nop-label asp-for="@Model.WidgetZoneName" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="@Model.WidgetZoneName" />
+                                    <span asp-validation-for="@Model.WidgetZoneName" />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+</form>
+

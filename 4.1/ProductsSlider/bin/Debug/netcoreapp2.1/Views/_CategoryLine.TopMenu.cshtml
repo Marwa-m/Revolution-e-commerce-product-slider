@@ -1,0 +1,110 @@
+﻿@model TopMenuPresentationModel.CategoryLinePresentationModel
+@using Nop.Core.Infrastructure;
+
+@{
+    var categoriesService = EngineContext.Current.Resolve<Nop.Services.Catalog.ICategoryService>();
+    var childCount = categoriesService.GetAllCategoriesByParentCategoryId(Model.Category.Id,false).Count();
+
+}
+
+<li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl"
+        data-animation-in="fadeIn"
+        data-animation-out="fadeOut"
+        data-position="right">
+        <a href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" aria-haspopup="true" aria-expanded="false">
+            @Model.Category.Name
+
+            @if (Model.Category.NumberOfProducts.HasValue)
+        {
+            <text></text>@T("Categories.TotalProducts", Model.Category.NumberOfProducts.Value)
+
+    }
+            @if (Model.Category.MegaSubCategories.Count > 0)
+        {
+            <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
+
+    }
+        </a>
+        @{
+            //subcategories
+            var subCategories = Model.ResponsiveMobileMenu ?
+                //responsive (all categories)
+                Model.Category.MegaSubCategories :
+                //standard design (only categories with "IncludeInTopMenu")
+                Model.Category.MegaSubCategories.Where(x => x.IncludeInTopMenu).ToList();
+
+            var levelClass = "";
+            if (Model.Level == 0)
+            {
+                levelClass = "w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17";
+            }
+
+            if (subCategories.Count > 0)
+            {
+                <div class="@levelClass" aria-labelledby="mega-menu-label-3">
+                    <div class="row">
+                        @{
+                            int increment = 0;
+                            for (int i = 0; i < subCategories.Count; i = increment)
+                            {
+                                <div class="col-sm-6 col-lg-3 g-mb-30 g-mb-0--md">
+                                    @for (int j = 0; j < childCount / (3) && increment < subCategories.Count; j++)
+                                    {
+                                        var categoryLineModel = new TopMenuPresentationModel.CategoryLinePresentationModel
+                                        {
+                                            Category = subCategories[increment],
+                                            Level = Model.Level + 1,
+                                            ResponsiveMobileMenu = Model.ResponsiveMobileMenu
+                                        };
+                                         @await Html.PartialAsync("~/Plugins/SimpleMegaMenu/Views/_Sub1CategoryLine.TopMenu.cshtml", categoryLineModel)
+                                        increment++;
+                                    }
+
+                                </div>
+
+                            }
+                            if (Model.Category.PictureMenuModel != null && Model.Category.PictureMenuModel.ImageUrl != null)
+                            {
+                                <div class="col-sm-6 col-lg-3 g-mb-30 g-mb-0--md">
+                                    <article class="g-pos-rel">
+                                        <a href="@Model.Category.PictureMenuUrl" title="@Model.Category.PictureMenuModel.Title">
+                                            <img class="img-fluid" src="@Model.Category.PictureMenuModel.ImageUrl" alt="@Model.Category.PictureMenuModel.AlternateText">
+                                        </a>
+                                    </article>
+                                </div>
+                            }
+                            else
+                            {
+                                var subCategoryPictureMenu = subCategories.Where(x => x.PictureMenuModel != null && x.PictureMenuModel.ImageUrl != null).FirstOrDefault();
+                                if (subCategoryPictureMenu != null)
+                                {
+                                    <div class="col-sm-6 col-lg-3 g-mb-30 g-mb-0--md">
+                                        <article class="g-pos-rel">
+                                            <a href="@subCategoryPictureMenu.PictureMenuUrl" title="@subCategoryPictureMenu.PictureMenuModel.Title">
+                                                <img class="img-fluid" src="@subCategoryPictureMenu.PictureMenuModel.ImageUrl" alt="@subCategoryPictureMenu.PictureMenuModel.AlternateText">
+                                            </a>
+                                        </article>
+                                    </div>
+                                }
+                                else
+                                {
+                                    subCategoryPictureMenu = subCategories.Where(x => x.MegaSubCategories.Any(b => b.PictureMenuModel != null && b.PictureMenuModel.ImageUrl != null)).FirstOrDefault();
+                                    if (subCategoryPictureMenu != null)
+                                    {
+                                        <div class="col-sm-6 col-lg-3 g-mb-30 g-mb-0--md">
+                                            <article class="g-pos-rel">
+                                                <a href="@subCategoryPictureMenu.MegaSubCategories[0].PictureMenuUrl" title="@subCategoryPictureMenu.MegaSubCategories[0].PictureMenuModel.Title">
+                                                    <img class="img-fluid" src="@subCategoryPictureMenu.MegaSubCategories[0].PictureMenuModel.ImageUrl" alt="@subCategoryPictureMenu.MegaSubCategories[0].PictureMenuModel.AlternateText">
+                                                </a>
+                                            </article>
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+        }
+    </li>

@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Products Slider",
+  "SystemName": "Widgets.ProductsSlider",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.10" ],
+  "Author": "Developer Marwa",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.ProductsSlider.dll",
+  "Description": "This plugin allows you to change the contents of main page slider"
+}

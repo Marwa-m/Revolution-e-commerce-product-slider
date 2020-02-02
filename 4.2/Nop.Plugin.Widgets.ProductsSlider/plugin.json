@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "REVOLUTION E-COMMERCE PRODUCT SLIDER",
+  "SystemName": "Widgets.ProductsSlider",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "Developer Marwa",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.ProductsSlider.dll",
+  "Description": "This plugin allows you to show REVOLUTION E-COMMERCE PRODUCT SLIDER"
+}

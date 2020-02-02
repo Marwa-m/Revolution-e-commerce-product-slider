@@ -1,0 +1,10 @@
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\bin\Debug\netcoreapp2.0\plugin.json
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\bin\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.deps.json
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\bin\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.dll
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\bin\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.pdb
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\obj\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.csprojResolveAssemblyReference.cache
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\obj\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.csproj.CoreCompileInputs.cache
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\obj\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.AssemblyInfoInputs.cache
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\obj\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.AssemblyInfo.cs
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\obj\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.dll
+C:\Users\marwa\Documents\Visual Studio 2017\nopCommerce_4.10_Theme\Plugins\ProductsSlider\obj\Debug\netcoreapp2.0\Nop.Plugin.Widgets.ProductsSlider.pdb

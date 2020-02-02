@@ -1,0 +1,169 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+   <OutputPath>..\..\Presentation\Nop.Web\Plugins\Widgets.ProductsSlider</OutputPath>
+   <OutDir>$(OutputPath)</OutDir>
+ </PropertyGroup>
+ <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+   <OutputPath>..\..\Presentation\Nop.Web\Plugins\Widgets.ProductsSlider</OutputPath>
+   <OutDir>$(OutputPath)</OutDir>
+ </PropertyGroup>
+
+    <!-- This target execute after "Build" target -->
+    <Target Name="NopTarget" AfterTargets="Build">
+        <!-- Delete unnecessary libraries from plugins path -->
+   <MSBuild Projects="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+    </Target>
+    <ItemGroup>
+      <None Remove="Content\revolution-slider\css\layers.css" />
+      <None Remove="Content\revolution-slider\css\navigation.css" />
+      <None Remove="Content\revolution-slider\css\settings.css" />
+      <None Remove="Content\revolution-slider\fonts\pe-icon-7-stroke\css\pe-icon-7-stroke.css" />
+      <None Remove="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.eot" />
+      <None Remove="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+      <None Remove="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.ttf" />
+      <None Remove="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.woff" />
+      <None Remove="Content\revolution-slider\fonts\revicons\revicons.eot" />
+      <None Remove="Content\revolution-slider\fonts\revicons\revicons.svg" />
+      <None Remove="Content\revolution-slider\fonts\revicons\revicons.ttf" />
+      <None Remove="Content\revolution-slider\fonts\revicons\revicons.woff" />
+      <None Remove="Content\revolution-slider\images\rating1.png" />
+      <None Remove="Content\revolution-slider\images\rating2.png" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.actions.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.carousel.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.kenburn.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.layeranimation.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.migration.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.navigation.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.parallax.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.slideanims.min.js" />
+      <None Remove="Content\revolution-slider\js\extensions\revolution.extension.video.min.js" />
+      <None Remove="Content\revolution-slider\js\jquery.themepunch.revolution.min.js" />
+      <None Remove="Content\revolution-slider\js\jquery.themepunch.tools.min.js" />
+      <None Remove="logo.jpg" />
+      <None Remove="plugin.json" />
+      <None Remove="Views\Create.cshtml" />
+      <None Remove="Views\Edit.cshtml" />
+      <None Remove="Views\List.cshtml" />
+      <None Remove="Views\PublicInfo.cshtml" />
+      <None Remove="Views\Settings.cshtml" />
+      <None Remove="Views\_CreateOrUpdate.cshtml" />
+      <None Remove="Views\_ViewImports.cshtml" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="Content\revolution-slider\css\layers.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\css\navigation.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\css\settings.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\pe-icon-7-stroke\css\pe-icon-7-stroke.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.eot">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.woff">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\revicons\revicons.eot">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\revicons\revicons.svg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\revicons\revicons.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\fonts\revicons\revicons.woff">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\images\rating1.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\images\rating2.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.actions.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.carousel.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.kenburn.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.layeranimation.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.migration.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.navigation.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.parallax.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.slideanims.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\extensions\revolution.extension.video.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\jquery.themepunch.revolution.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Content\revolution-slider\js\jquery.themepunch.tools.min.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="logo.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="plugin.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Views\Create.cshtml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Views\Edit.cshtml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Views\List.cshtml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Views\PublicInfo.cshtml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Views\Settings.cshtml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Views\_CreateOrUpdate.cshtml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Views\_ViewImports.cshtml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+    <ItemGroup>
+     
+      <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+       <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj" />
+       <ProjectReference Include="..\..\Libraries\Nop.Services\Nop.Services.csproj" />
+       <ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj" />
+
+    </ItemGroup>
+</Project>

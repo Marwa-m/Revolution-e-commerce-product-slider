@@ -1,0 +1,27 @@
+﻿@model TopMenuPresentationModel.CategoryLinePresentationModel
+@using Nop.Core.Infrastructure;
+
+<li>
+    <a class="d-block g-color-text g-color-primary--hover g-text-underline--none--hover g-py-5" href="@Url.RouteUrl("Category", new { SeName = Model.Category.SeName })">@Model.Category.Name</a>
+</li>
+@{
+    //subcategories
+    var subCategories = Model.ResponsiveMobileMenu ?
+        //responsive (all categories)
+        Model.Category.MegaSubCategories :
+        //standard design (only categories with "IncludeInTopMenu")
+        Model.Category.MegaSubCategories.Where(x => x.IncludeInTopMenu).ToList();
+
+    if (subCategories.Count > 0)
+    {
+        <ul class="g-list-style-square">
+            @foreach (var subCategory in subCategories)
+            {
+                <li>
+                    <a class="d-block g-color-text g-color-primary--hover g-text-underline--none--hover g-px-20 g-py-5" href="@Url.RouteUrl("Category", new { SeName = subCategory.SeName })">@subCategory.Name</a>
+                </li>
+            }
+        </ul>
+
+    }
+}

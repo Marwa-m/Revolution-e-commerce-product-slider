@@ -1,0 +1,122 @@
+﻿@using Nop.Core
+@using Nop.Web.Framework.UI
+@using System.Globalization
+@inject IWorkContext workContext
+@*@{
+        var supportRtl = workContext.WorkingLanguage.Rtl;
+        Html.AppendCssFileParts(ResourceLocation.Head, "~/Plugins/SimpleMegaMenu/Content/css/hs.megamenu.css");
+
+        if (supportRtl)
+        {
+            Html.AppendCssFileParts(ResourceLocation.Head, "~/Plugins/SimpleMegaMenu/Content/css/SimpleMegaMenu.rtl.css");
+        }
+        else
+        {
+            Html.AppendCssFileParts(ResourceLocation.Head, "~/Plugins/SimpleMegaMenu/Content/css/SimpleMegaMenu.css");
+        }
+
+
+
+        Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/SimpleMegaMenu/Content/js/hs.megamenu.js");
+        Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/SimpleMegaMenu/Content/js/hs.hamburgers.js");
+
+        Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/SimpleMegaMenu/Content/js/hs.core.js");
+
+        Html.AppendInlineScriptParts(ResourceLocation.Footer, @"<script>
+                                      $(document).on('ready', function () {
+    //$.HSCore.components.HSHeader.init($('#js-header'));
+                $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+                // initialization of HSMegaMenu component
+                $('.js-mega-menu').HSMegaMenu({
+                    event: 'hover',
+                    pageContainer: $('.container'),
+                    breakpoint: 991
+                });
+                                      });
+    </script>");
+
+        }*@
+
+@model TopMenuPresentationModel
+<div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 g-py-10">
+    <nav class="js-mega-menu navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Responsive Toggle Button -->
+            <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0" type="button"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="navBar"
+                    data-toggle="collapse"
+                    data-target="#navBar">
+                <span class="hamburger hamburger--slider g-pr-0">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </span>
+            </button>
+            <!-- End Responsive Toggle Button -->
+            <!-- Logo -->
+            @await Component.InvokeAsync("Logo")
+            <!-- End Logo -->
+            <!--Top Menu-->
+
+            <div id="navBar" class="collapse navbar-collapse align-items-center flex-sm-row g-pt-15 g-pt-0--lg">
+                <ul class="navbar-nav ml-auto">
+
+                    @await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_before" })
+                    @if (Model.DisplayHomePageMenuItem)
+            {
+                <li>
+                    <a href="@Url.RouteUrl("HomePage")" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20">@T("HomePage")</a>
+                </li>
+    }
+                    @{
+                var rootCategories = Model.MegaCategories.Where(x => x.IncludeInTopMenu).ToList();
+                    }
+                    @foreach (var category in rootCategories)
+            {
+                var categoryLineModel = new TopMenuPresentationModel.CategoryLinePresentationModel
+                {
+                    Category = category
+                };
+                @await Html.PartialAsync("~/Plugins/SimpleMegaMenu/Views/_CategoryLine.TopMenu.cshtml", categoryLineModel)
+    }
+                    @foreach (var topic in Model.Topics)
+            {
+                <li class="nav-item g-ml-10--lg"><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })" class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20">@topic.Name</a></li>
+
+    }
+                    @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
+            {
+                <li class="nav-item g-ml-10--lg">
+                    <a href="@Url.RouteUrl("NewProducts")" class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20">@T("Products.NewProducts")</a>
+                </li>
+    }
+                    @if (Model.DisplayProductSearchMenuItem)
+            {
+                <li class="nav-item g-ml-10--lg"><a href="@Url.RouteUrl("ProductSearch")" class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20">@T("Search")</a></li>
+    }
+                    @if (Model.DisplayCustomerInfoMenuItem)
+            {
+                <li class="nav-item g-ml-10--lg"><a href="@Url.RouteUrl("CustomerInfo")" class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20">@T("Account.MyAccount")</a></li>
+    }
+                    @if (Model.BlogEnabled && Model.DisplayBlogMenuItem)
+            {
+                <li class="nav-item g-ml-10--lg"><a href="@Url.RouteUrl("Blog")" class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20">@T("Blog")</a></li>
+    }
+                    @if (Model.ForumEnabled && Model.DisplayForumsMenuItem)
+            {
+                <li class="nav-item g-ml-10--lg"><a href="@Url.RouteUrl("Boards")" class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20">@T("Forum.Forums")</a></li>
+    }
+                    @if (Model.DisplayContactUsMenuItem)
+            {
+                <li class="nav-item g-ml-10--lg"><a href="@Url.RouteUrl("ContactUs")" class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20">@T("ContactUs")</a></li>
+    }
+                    @await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_after" })
+                </ul>
+            </div>
+            <!--End Top Menu-->
+        </div>
+    </nav>
+</div>

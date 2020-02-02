@@ -1,0 +1,394 @@
+﻿@model IEnumerable<ProductSliderPresentationModel>
+@using Nop.Plugin.Widgets.ProductsSlider.Data;
+@using Nop.Web.Framework.Localization;
+@using Nop.Web.Framework.UI;
+@using Nop.Core.Domain.Orders;
+
+@{
+    Layout = "";
+    Html.AppendCssFileParts(ResourceLocation.Head,"~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css");
+    Html.AddCssFileParts("~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/css/settings.css");
+    Html.AddCssFileParts("~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/css/layers.css");
+    Html.AddCssFileParts("~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/css/navigation.css");
+    Html.AppendScriptParts(ResourceLocation.Footer,"~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.video.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.slideanims.min.js");
+
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.parallax.min.js");
+
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.navigation.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.migration.min.js");
+
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.layeranimation.min.js");
+
+
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.kenburn.min.js");
+
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.carousel.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/extensions/revolution.extension.actions.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/jquery.themepunch.revolution.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.ProductsSlider/Content/revolution-slider/js/jquery.themepunch.tools.min.js");
+
+    <style>
+        .tp-parallax-wrap {
+            float: left !important;
+        }
+
+        .tp-mask-wrap, .tp-loop-wrap {
+            position: relative !important;
+        }
+
+        .old-price {
+            margin: 0 5px 0 0;
+            font-size: 16px;
+            color: #aaa;
+            text-decoration: line-through;
+        }
+
+        .rating {
+            background: url('Plugins/Widgets.ProductsSlider/Content/revolution-slider/images/rating1.png') repeat-x;
+            width: 95px;
+            height: 14px;
+        }
+
+            .rating div {
+                background: url('Plugins/Widgets.ProductsSlider/Content/revolution-slider/images/rating2.png') repeat-x;
+                height: 14px;
+            }
+    </style>
+}
+
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div id="rev_slider_1086_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="woobig1" data-source="gallery" style="margin:0px auto;background-color:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
+        <!-- START REVOLUTION SLIDER 5.4.1 auto mode -->
+        <div id="rev_slider_1086_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.4.1">
+            <ul>
+                @{
+        int dataIndex = 3076;
+        foreach (var item in Model)
+        {
+
+            <!-- SLIDE  -->
+                <li data-index="rs-@dataIndex" data-transition="slideremovehorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="@((item.PictureThumbnailUrl!=null)?item.PictureThumbnailUrl:"")" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1000" data-fsslotamount="7" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+                    <!-- MAIN IMAGE -->
+                    <img src="@((item.PictureThumbnailUrl!=null)?item.PictureThumbnailUrl:"")" alt="Image description" data-lazyload="@((item.PictureThumbnailUrl!=null)?item.PictureThumbnailUrl:"")" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg">
+                    <!-- LAYERS -->
+                    <!-- LAYER NR. 1 -->
+                    <div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme"
+                         id="slide-3076-layer-1"
+                         data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
+                         data-y="['top','top','top','top']" data-voffset="['30','30','30','30']"
+                         data-width="['430','430','430','420']"
+                         data-height="540"
+                         data-whitespace="nowrap"
+                         data-type="shape"
+                         data-responsive_offset="on"
+                         data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":500,"ease":"Power3.easeOut"},{"delay":"wait","speed":1200,"to":"x:left;","ease":"Power3.easeInOut"}]'
+                         data-textAlign="['left','left','left','left']"
+                         data-paddingtop="[0,0,0,0]"
+                         data-paddingright="[0,0,0,0]"
+                         data-paddingbottom="[0,0,0,0]"
+                         data-paddingleft="[0,0,0,0]"
+                         style="z-index: 5;text-transform:left;background-color:rgba(255, 255, 255, 1.00);border-color:rgba(0, 0, 0, 0);border-width:0px;"></div>
+                    <!-- LAYER NR. 2 -->
+                    <div class="tp-caption Woo-TitleLarge   tp-resizeme"
+                         id="slide-3076-layer-2"
+                         data-x="['left','left','left','left']" data-hoffset="['60','60','60','55']"
+                         data-y="['top','top','top','top']" data-voffset="['60','60','60','60']"
+                         data-width="370"
+                         data-height="none"
+                         data-whitespace="normal"
+                         data-type="text"
+                         data-responsive_offset="on"
+                         data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":600,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"}]'
+                         data-textAlign="['center','center','center','center']"
+                         data-paddingtop="[0,0,0,0]"
+                         data-paddingright="[0,0,0,0]"
+                         data-paddingbottom="[0,0,0,0]"
+                         data-paddingleft="[0,0,0,0]"
+                         style="z-index: 6; min-width: 370px; max-width: 370px; white-space: normal;text-transform:left;">
+                        @(item.Name != null ? item.Name : "")
+                    </div>
+                    <!-- LAYER NR. 3 -->
+                    <div class="tp-caption   tp-resizeme"
+                         id="slide-3076-layer-6"
+                         data-x="['left','left','left','left']" data-hoffset="['185','185','185','177']"
+                         data-y="['top','top','top','top']" data-voffset="['170','170','170','170']"
+                         data-width="100"
+                         data-height="none"
+                         data-whitespace="normal"
+                         data-type="text"
+                         data-responsive_offset="on"
+                         data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":700,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"}]'
+                         data-textAlign="['center','center','center','center']"
+                         data-paddingtop="[0,0,0,0]"
+                         data-paddingright="[0,0,0,0]"
+                         data-paddingbottom="[0,0,0,0]"
+                         data-paddingleft="[0,0,0,0]"
+                         style="z-index: 7; min-width: 100px; max-width: 100px; white-space: normal; line-height: 22px;text-transform:left;">
+                        @if (item.Preview > 0)
+        {
+                <div class="product-rating-box">
+                    <div class="rating">
+                        <div style="width: @((item.Preview*100)/5)%;float:left;">
+                        </div>
+                    </div>
+                </div>
+}
+                    </div>
+                    <!-- LAYER NR. 4 -->
+                    <div class="tp-caption Woo-Rating   tp-resizeme"
+                         id="slide-3076-layer-9"
+                         data-x="['left','left','left','left']" data-hoffset="['60','60','60','55']"
+                         data-y="['top','top','top','top']" data-voffset="['225','225','225','225']"
+                         data-width="370"
+                         data-height="none"
+                         data-whitespace="normal"
+                         data-type="text"
+                         data-responsive_offset="on"
+                         data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":800,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"}]'
+                         data-textAlign="['center','center','center','center']"
+                         data-paddingtop="[0,0,0,0]"
+                         data-paddingright="[0,0,0,0]"
+                         data-paddingbottom="[0,0,0,0]"
+                         data-paddingleft="[0,0,0,0]"
+                         style="z-index: 8; min-width: 370px; max-width: 370px; white-space: normal; line-height: 22px;text-transform:left;">
+                        @if (item.ShortDescription != null)
+        {
+                @Html.Raw(item.ShortDescription.ToString())
+
+}
+                    </div>
+                    @if (item.productOverviewModel.ProductType == Nop.Core.Domain.Catalog.ProductType.GroupedProduct)
+    {
+                <!-- LAYER NR. 5 -->
+                <div class="tp-caption Woo-SubTitle   tp-resizeme"
+                     id="slide-3076-layer-10"
+                     data-x="['left','left','left','left']" data-hoffset="['60','59','59','55']"
+                     data-y="['top','top','top','top']" data-voffset="['324','324','324','324']"
+                     data-width="370"
+                     data-height="none"
+                     data-whitespace="normal"
+                     data-type="text"
+                     data-responsive_offset="on"
+                     data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":900,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"}]'
+                     data-textAlign="['center','center','center','center']"
+                     data-paddingtop="[0,0,0,0]"
+                     data-paddingright="[0,0,0,0]"
+                     data-paddingbottom="[0,0,0,0]"
+                     data-paddingleft="[0,0,0,0]"
+                     style="z-index: 9; min-width: 370px; max-width: 370px; white-space: normal;text-transform:left;">
+                    @T("Plugins.Widgets.ProductsSlider.ProductSliders.StartFrom")
+                </div>
+
+}
+                    <!-- LAYER NR. 6 -->
+                    <div class="tp-caption Woo-PriceLarge   tp-resizeme"
+                         id="slide-3076-layer-11"
+                         data-x="['left','left','left','left']" data-hoffset="['60','60','60','55']"
+                         data-y="['top','top','top','top']" data-voffset="['350','350','350','350']"
+                         data-width="370"
+                         data-height="none"
+                         data-whitespace="normal"
+                         data-type="text"
+                         data-responsive_offset="on"
+                         data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"}]'
+                         data-textAlign="['center','center','center','center']"
+                         data-paddingtop="[0,0,0,0]"
+                         data-paddingright="[0,0,0,0]"
+                         data-paddingbottom="[0,0,0,0]"
+                         data-paddingleft="[0,0,0,0]"
+                         style="z-index: 10; min-width: 370px; max-width: 370px; white-space: normal; font-size: 40px; line-height: 40px;text-transform:left;">
+                        @(item.Price)
+                    </div>
+
+                    <!-- LAYER NR. 5 -->
+                    <div class="tp-caption Woo-SubTitle   tp-resizeme"
+                         id="slide-3076-layer-10"
+                         data-x="['left','left','left','left']" data-hoffset="['60','59','59','55']"
+                         data-y="['top','top','top','top']" data-voffset="['400','400','400','400']"
+                         data-width="370"
+                         data-height="none"
+                         data-whitespace="normal"
+                         data-type="text"
+                         data-responsive_offset="on"
+                         data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":900,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"}]'
+                         data-textAlign="['center','center','center','center']"
+                         data-paddingtop="[0,0,0,0]"
+                         data-paddingright="[0,0,0,0]"
+                         data-paddingbottom="[0,0,0,0]"
+                         data-paddingleft="[0,0,0,0]"
+                         style="z-index: 9; min-width: 370px; max-width: 370px; white-space: normal;text-transform:left;">
+                        @if (item.OldPrice != "")
+        {
+                <span class="old-price">@item.OldPrice</span>
+}
+                    </div>
+                    <!-- LAYER NR. 7 -->
+                    @if (item.Link != null || item.productOverviewModel != null)
+    {
+        string Link = "";
+        if (!String.IsNullOrEmpty(item.Link))
+        { Link = item.Link; }
+        else if (item.productOverviewModel != null)
+        {
+            Link = item.productOverviewModel.SeName;
+        }
+                <a href="@Link" target='@(item.IsExternal ? "_blank" : "_self")'>
+                    <div class="tp-caption Woo-ProductInfo rev-btn  tp-resizeme"
+                         id="slide-3076-layer-14"
+                         data-x="['left','left','left','left']" data-hoffset="['139','139','139','132']"
+                         data-y="['top','top','top','top']" data-voffset="['449','449','449','450']"
+                         data-width="none"
+                         data-height="none"
+                         data-whitespace="nowrap"
+                         data-type="button"
+                         data-responsive_offset="on"
+                         data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":1100,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"200","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(221, 221, 221, 1.00);bw:1px 1px 1px 1px;"}]'
+                         data-textAlign="['left','left','left','left']"
+                         data-paddingtop="[12,12,12,12]"
+                         data-paddingright="[75,75,75,75]"
+                         data-paddingbottom="[12,12,12,12]"
+                         data-paddingleft="[50,50,50,50]"
+                         style="z-index: 11; white-space: nowrap;text-transform:left;background-color:rgba(238, 238, 238, 1.00);outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
+                        <i class="pe-7s-look" style="font-size:25px; float: left; margin-top: -6px; margin-right: 6px;"></i>
+                        @T("Plugins.Widgets.ProductsSlider.ProductInfo")
+                    </div>
+                </a>
+}
+
+
+                    <!-- LAYER NR. 8 -->
+                    @if (item.ProductId != 0 && item.productOverviewModel != null)
+    {
+        //prepare "Add to cart" AJAX link
+        string addtocartlink = "";
+
+        var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+        var quantity = 1;
+        if (item.productOverviewModel.ProductPrice.ForceRedirectionAfterAddingToCart)
+        {
+            addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity, forceredirection = item.productOverviewModel.ProductPrice.ForceRedirectionAfterAddingToCart });
+        }
+        else
+        {
+            addtocartlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = item.ProductId, shoppingCartTypeId = shoppingCartTypeId, quantity = quantity });
+        }
+                <div class="tp-caption Woo-AddToCart rev-btn  tp-resizeme"
+                     onclick="AjaxCart.addproducttocart_catalog('@addtocartlink');return false;"
+                     id="slide-3076-layer-13"
+                     data-x="['left','left','left','left']" data-hoffset="['142','142','142','137']"
+                     data-y="['top','top','top','top']" data-voffset="['500','500','500','500']"
+                     data-width="none"
+                     data-height="none"
+                     data-whitespace="nowrap"
+                     data-type="button"
+                     data-responsive_offset="on"
+                     data-frames='[{"from":"z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","speed":1500,"to":"o:1;","delay":1200,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:left;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"200","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(243, 168, 71, 1.00);bw:1px 1px 1px 1px;"}]'
+                     data-textAlign="['left','left','left','left']"
+                     data-paddingtop="[12,12,12,12]"
+                     data-paddingright="[75,75,75,75]"
+                     data-paddingbottom="[12,12,12,12]"
+                     data-paddingleft="[50,50,50,50]"
+                     style="z-index: 12; white-space: nowrap;text-transform:left;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
+                    <i class="pe-7s-cart" style="font-size:25px; float: left; margin-top: -6px; margin-right: 6px;"></i>
+                    @T("ShoppingCart.AddToCart")
+                </div>
+
+}
+
+                </li>
+            <!-- SLIDE  -->
+
+dataIndex++;
+
+}
+                }
+
+            </ul>
+        </div>
+    </div>
+}
+<script>
+    var tpj = jQuery;
+
+    var revapi1086;
+    tpj(document).ready(function () {
+        if (tpj("#rev_slider_1086_1").revolution == undefined) {
+            revslider_showDoubleJqueryError("#rev_slider_1086_1");
+        } else {
+            revapi1086 = tpj("#rev_slider_1086_1").show().revolution({
+                sliderType: "standard",
+                jsFileLocation: "revolution-slider/js/",
+                sliderLayout: "auto",
+                dottedOverlay: "none",
+                delay: 9000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    keyboard_direction: "horizontal",
+                    mouseScrollNavigation: "off",
+                    mouseScrollReverse: "default",
+                    onHoverStop: "on",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 50,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    }
+                    ,
+                    arrows: {
+                        style: "gyges",
+                        enable: true,
+                        hide_onmobile: false,
+                        hide_onleave: false,
+                        tmp: '',
+                        left: {
+                            h_align: "right",
+                            v_align: "bottom",
+                            h_offset: 40,
+                            v_offset: 0
+                        },
+                        right: {
+                            h_align: "right",
+                            v_align: "bottom",
+                            h_offset: 0,
+                            v_offset: 0
+                        }
+                    }
+                },
+                responsiveLevels: [1240, 1024, 778, 480],
+                visibilityLevels: [1240, 1024, 778, 480],
+                gridwidth: [1200, 1024, 778, 480],
+                gridheight: [600, 600, 600, 600],
+                lazyType: "single",
+                parallax: {
+                    type: "scroll",
+                    origo: "slidercenter",
+                    speed: 400,
+                    levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47, 48, 49, 50, 51, 55],
+                    type: "scroll",
+                },
+                shadow: 0,
+                spinner: "off",
+                stopLoop: "off",
+                stopAfterLoops: -1,
+                stopAtSlide: -1,
+                shuffle: "off",
+                autoHeight: "off",
+                disableProgressBar: "on",
+                hideThumbsOnMobile: "off",
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                debugMode: false,
+                fallbacks: {
+                    simplifyAll: "off",
+                    nextSlideOnWindowFocus: "off",
+                    disableFocusListener: false,
+                }
+            });
+        }
+    });
+</script>

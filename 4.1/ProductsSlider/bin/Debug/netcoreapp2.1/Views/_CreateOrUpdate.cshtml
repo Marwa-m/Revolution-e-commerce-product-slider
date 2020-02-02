@@ -1,0 +1,293 @@
+﻿@using Nop.Web.Framework;
+@using Nop.Web.Framework.Mvc;
+@using System;
+@using Nop.Web.Framework.Events;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Events;
+@model ProductSliderModel
+
+@inject IEventPublisher eventPublisher
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+                <div class="pull-left">
+                    @await Component.InvokeAsync("SettingMode", new { modeName = "productSlider-advanced-mode" })
+                </div>
+            </div>
+        </div>
+        <nop-tabs id="productSlider-edit">
+            <nop-tab asp-name="tab-info" asp-title="@T("Admin.Catalog.Categories.Info")" asp-default="true">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    @T("Plugins.Widgets.RevolutionProductsSlider.CommonInfo")
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="form-group advanced-setting">
+                                        <script type="text/javascript">
+                        $(document).ready(function() {
+                            $("#@Html.IdFor(model => model.ProductId)").change(function() {
+                                var selectedProductId = $(this).val();
+                                $.ajax({
+                                    cache: false,
+                                    type: "GET",
+                                    url: "@(Url.Action("GetProductById", "WidgetsProductSlider"))",
+                                    data: { "Id": selectedProductId },
+                                    success: function(data) {
+                                         $("#@Html.IdFor(model => model.Name)").val(data.Name);
+                                        $("#@Html.IdFor(model => model.ShortDescription)").val(data.ShortDescription);
+                                        $("#@Html.IdFor(model => model.Preview)").val(data.Preview);
+                                        $("#@Html.IdFor(model => model.Price)").val(data.Price);
+                                        $("#@Html.IdFor(model => model.OldPrice)").val(data.OldPrice);
+                                        $("#AvailableStartDateTimeUtc").kendoDateTimePicker({
+                                            value: data.AvailableStartDateTimeUtc
+                                        });
+                                        $("#AvailableEndDateTimeUtc").kendoDateTimePicker({
+                                            value: data.AvailableEndDateTimeUtc
+                                        });
+                                        for (var i = 0; i < data.Locales.length; i++) {
+                                            $("#Locales_0__Name".replace("0", i)).val(data.Locales[i].Name);
+                                            $("#Locales_0__ShortDescription".replace("0", i)).val(data.Locales[i].ShortDescription);
+
+                                        }
+
+                                    },
+                                    error: function(xhr, ajaxOptions, thrownError) {
+                                        alert('Failed to retrieve productSlider info.');
+                                    }
+                                });
+                            });
+                        });
+                                        </script>
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.ProductId" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-select asp-for="ProductId" asp-items="Model.AvailableProducts" />
+                                            <span asp-validation-for="ProductId"></span>
+                                        </div>
+                                    </div>
+                                    @(Html.LocalizedEditor<ProductSliderModel, ProductSliderLocalizedModel>("product-info-localized",
+                                @<div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.Locales[item].Name " />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.Locales[item].Name" />
+                                            <span asp-validation-for="@Model.Locales[item].Name"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.Locales[item].ShortDescription" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.Locales[item].ShortDescription" asp-template="RichEditor" />
+                                            <span asp-validation-for="@Model.Locales[item].ShortDescription"></span>
+                                        </div>
+                                    </div>
+
+                                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                                </div>
+,@<div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.Name" />"
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.Name" />
+                                            <span asp-validation-for="@Model.Name"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.ShortDescription" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.ShortDescription" asp-template="RichEditor" />
+                                            <span asp-validation-for="@Model.ShortDescription"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+))
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.PictureId" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.PictureId" />
+                                            <span asp-validation-for="@Model.PictureId" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.Link" />
+                                        </div>
+                                        <div class="col-md-9">
+
+                                            <nop-editor asp-for="@Model.Link" />
+                                            <span asp-validation-for="@Model.Link" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.IsExternal" />
+                                        </div>
+                                        <div class="col-md-9">
+
+                                            <nop-editor asp-for="@Model.IsExternal" />
+                                            <span asp-validation-for="@Model.IsExternal" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.Preview" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.Preview" />
+                                            <span asp-validation-for="@Model.Preview" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.Price" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.Price" asp-postfix="@Model.PrimaryStoreCurrencyCode" />
+                                            <span asp-validation-for="@Model.Price" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.OldPrice" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.OldPrice" asp-postfix="@Model.PrimaryStoreCurrencyCode" />
+                                            <span asp-validation-for="@Model.OldPrice" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group advanced-setting">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="SelectedStoreIds" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <nop-select asp-for="SelectedStoreIds" asp-items="Model.AvailableStores" asp-multiple="true" />
+                                                    <script type="text/javascript">
+                                $(document).ready(function() {
+                                    var storesIdsInput = $('#@Html.IdFor(model => model.SelectedStoreIds)')
+                                        .data("kendoMultiSelect");
+                                    storesIdsInput.setOptions({
+                                        autoClose: false,
+                                        filter: "contains"
+                                    });
+
+                                    @if (Model.AvailableStores.Count == 0)
+                                    {
+                                        <text>
+                                            storesIdsInput.setOptions({
+                                                enable: false,
+                                                placeholder: 'No stores available'
+                                            });
+                                            storesIdsInput._placeholder();
+                                            storesIdsInput._enable();
+                                        </text>
+                                    }
+                                });
+                                                    </script>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @await Component.InvokeAsync("MultistoreDisabledWarning")
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  advanced-setting">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.Published" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.Published" />
+                                            <span asp-validation-for="@Model.Published" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group advanced-setting" id="pnlDisplayOrder">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.DisplayOrder" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.DisplayOrder" />
+                                            <span asp-validation-for="@Model.DisplayOrder" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group advanced-setting">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.AvailableStartDateTimeUtc" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.AvailableStartDateTimeUtc" />
+                                            <span asp-validation-for="@Model.AvailableStartDateTimeUtc" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group advanced-setting">
+                                        <div class="col-md-3">
+                                            <nop-label asp-for="@Model.AvailableEndDateTimeUtc" />
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="@Model.AvailableEndDateTimeUtc" />
+                                            <span asp-validation-for="@Model.AvailableEndDateTimeUtc" />
+                                        </div>
+                                    </div>
+                                    @if (Model.CreatedOn.HasValue)
+    {
+                                <div class="form-group advanced-setting">
+                                    <div class="col-md-3">
+                                        <nop-label asp-for="CreatedOn" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-text-row">@Model.CreatedOn.Value.ToString("F")</div>
+                                    </div>
+                                </div>
+}
+                                    @if (Model.UpdatedOn.HasValue)
+    {
+                                <div class="form-group advanced-setting">
+                                    <div class="col-md-3">
+                                        <nop-label asp-for="UpdatedOn" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-text-row">@Model.UpdatedOn.Value.ToString("F")</div>
+                                    </div>
+                                </div>
+}
+
+                                </div>
+                                </div>
+                            </div>
+            
+                                </nop-tab>
+        </nop-tabs>
+    </div>
+</div>
+
+
+@{
+    //custom tabs
+    var eventMessage = new AdminTabStripCreated(this.Html, "productSlider-edit");
+    EngineContext.Current.Resolve<IEventPublisher>().Publish(eventMessage);
+    foreach (var eventBlock in eventMessage.BlocksToRender)
+    {
+        @eventBlock
+    }
+}
+
+
+

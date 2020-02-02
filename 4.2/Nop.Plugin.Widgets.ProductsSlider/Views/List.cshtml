@@ -1,0 +1,152 @@
+﻿@model ProductSliderSearchModel
+@using Nop.Plugin.Widgets.ProductsSlider.Data;
+@using Nop.Web.Framework;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.UI;
+
+@{
+    Layout = "_AdminLayout";
+}
+@{
+    //page title
+    ViewBag.Title = T("Plugins.Widgets.ProductsSlider.ProductSliders").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("ProductSliderList");
+}
+@{
+    const string hideSearchBlockAttributeName = "OfferPage.HideSearchBlock";
+    var hideSearchBlock = genericAttributeService.GetAttribute<bool>(workContext.CurrentCustomer, hideSearchBlockAttributeName);
+}
+
+<nop-antiforgery-token />
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("Plugins.Widgets.ProductsSlider.ProductSliders")
+    </h1>
+    <div class="pull-right">
+        <a asp-action="Create" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+        <button type="button" id="delete-selected" class="btn bg-red">
+            <i class="fa fa-trash-o"></i>
+            @T("Admin.Common.Delete.Selected")
+        </button>
+        <a asp-action="Settings" class="btn bg-blue">
+            <i class="fa fa-settings"></i>
+            @T("Plugins.Widgets.ProductsSlider.ProductSliders.settings")
+        </a>
+
+    </div>
+</div>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default panel-search">
+                <div class="panel-body">
+                    <div class="row search-row @(!hideSearchBlock ? "opened" : "")" data-hideAttribute="@hideSearchBlockAttributeName">
+                        <div class="search-text">@T("Admin.Common.Search")</div>
+                        <div class="icon-search"><i class="fa fa-search" aria-hidden="true"></i></div>
+                        <div class="icon-collapse"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                    </div>
+
+                    <div class="search-body @(hideSearchBlock ? "closed" : "")">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="SearchName" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-editor asp-for="SearchName" />
+                                    </div>
+                                </div>
+                                <div class="form-group" @(Model.HideStoresList ? Html.Raw("style=\"display:none\"") : null)>
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="SearchStoreId" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-select asp-for="SearchStoreId" asp-items="Model.AvailableStores" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="SearchPublishedId" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-select asp-for="SearchPublishedId" asp-items="Model.AvailablePublishedOptions" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-4">
+                                        <button type="button" id="search-productslider" class="btn btn-primary btn-search"><i class="fa fa-search"></i>@T("Admin.Common.Search")</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @await Html.PartialAsync("Table", new DataTablesModel
+    {
+        Name = "offers-grid",
+        UrlRead = new DataUrl("List", "WidgetsProductSlider", null),
+        SearchButtonId = "search-productslider",
+        Length = Model.PageSize,
+        LengthMenu = Model.AvailablePageSizes,
+        Filters = new List<FilterParameter>
+                {
+                    new FilterParameter(nameof(Model.SearchName)),
+                    new FilterParameter(nameof(Model.SearchStoreId)),
+                    new FilterParameter(nameof(Model.SearchPublishedId))
+                },
+        ColumnCollection = new List<ColumnProperty>
+                {
+            new ColumnProperty(nameof(ProductSliderModel.PictureThumbnailUrl))
+                                {
+                                    Title = T("Plugins.Widgets.ProductsSlider.ProductSliders.Fields.PictureThumbnailUrl").Text,
+                                    Width = "100",
+                                    Render = new RenderPicture()
+                                },
+            new ColumnProperty(nameof(ProductSliderModel.Name))
+                    {
+                        Title = T("Plugins.Widgets.ProductsSlider.ProductSliders.Fields.Name").Text,
+                        Width = "100",
+                        ClassName = NopColumnClassDefaults.CenterAll
+            },
+
+                    new ColumnProperty(nameof(ProductSliderModel.Published))
+                    {
+                        Title = T("Plugins.Widgets.ProductsSlider.ProductSliders.Fields.Published").Text,
+                        Width = "100",
+                        ClassName = NopColumnClassDefaults.CenterAll,
+                        Render = new RenderBoolean()
+                    },
+                    new ColumnProperty(nameof(ProductSliderModel.DisplayOrder))
+                    {
+                        Title = T("Plugins.Widgets.ProductsSlider.ProductSliders.Fields.DisplayOrder").Text,
+                        Width = "150",
+                        ClassName =  NopColumnClassDefaults.CenterAll
+                    },
+                    new ColumnProperty(nameof(ProductSliderModel.Id))
+                    {
+                        Title = T("Admin.Common.Edit").Text,
+                        Width = "100",
+                        ClassName =  NopColumnClassDefaults.Button,
+                        Render = new RenderButtonEdit(new DataUrl("Edit"))
+                    }
+                }
+    })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+
