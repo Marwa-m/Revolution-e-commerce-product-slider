@@ -1,0 +1,60 @@
+﻿@model RevSliderModel
+@inject AdminAreaSettings adminAreaSettings
+    @if (Model.Id > 0)
+    {
+<div class="panel-body">
+    @await Html.PartialAsync("Table", new DataTablesModel
+    {
+        Name = "widgetzones-grid",
+        UrlRead = new DataUrl("WidgetZoneList", "RevSlider", new RouteValueDictionary { [nameof(Model.RevSliderProductSearchModel.RevSliderId)] = Model.RevSliderProductSearchModel.RevSliderId }),
+        UrlDelete = new DataUrl("WidgetZoneDelete", "RevSlider", null),
+        Length = Model.RevSliderProductSearchModel.PageSize,
+        LengthMenu = Model.RevSliderProductSearchModel.AvailablePageSizes,
+        ColumnCollection = new List<ColumnProperty>
+{
+new ColumnProperty(nameof(RevSliderWidgetZoneModel.WidgetZone))
+{
+Title = T("Plugins.Widgets.RevolutionSlider.WidgetZone.Fields.WidgetZone").Text
+},
+
+
+new ColumnProperty(nameof(RevSliderModel.RevSliderWidgetZoneModel.Id))
+{
+Title = T("Admin.Common.Delete").Text,
+Width = "100",
+Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+ClassName = NopColumnClassDefaults.Button
+}
+}
+    })
+
+</div>
+
+            <div class="panel-footer">
+                <button type="submit" id="btnAddNewWidgetZone"
+                        onclick="javascript:OpenWindow('@(Url.Action("WidgetZoneAddPopup", "RevSlider", new {revSliderId = Model.Id, btnId = "btnRefreshWidgetZones", formId = "revSlider-form"}))', 800, 800, true); return false;"
+                        class="btn btn-primary">
+                    @T("Plugins.Widgets.RevolutionSlider.WidgetZone.AddNew")
+                </button>
+                <input type="submit" id="btnRefreshWidgetZones" style="display: none" />
+                <script>
+                    $(document).ready(function () {
+                        $('#btnRefreshWidgetZones').click(function () {
+                            //refresh grid
+                            updateTable('#widgetzones-grid');
+
+                            //return false to don't reload a page
+                            return false;
+                        });
+                    });
+                </script>
+        </div>
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @T("Plugins.Widgets.RevolutionSlider.SaveBeforeEdit")
+            </div>
+        </div>
+    }

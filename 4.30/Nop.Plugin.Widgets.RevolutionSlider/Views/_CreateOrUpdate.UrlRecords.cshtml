@@ -1,0 +1,81 @@
+﻿@model RevSliderModel
+@inject AdminAreaSettings adminAreaSettings
+    @if (Model.Id > 0)
+    {
+<div class="panel-body">
+    @await Html.PartialAsync("Table", new DataTablesModel
+{
+    Name = "urlrecords-grid",
+    UrlRead = new DataUrl("UrlRecordList", "RevSlider", new RouteValueDictionary { [nameof(Model.RevSliderProductSearchModel.RevSliderId)] = Model.RevSliderProductSearchModel.RevSliderId }),
+    UrlDelete = new DataUrl("UrlRecordDelete", "RevSlider", null),
+    Length = Model.RevSliderProductSearchModel.PageSize,
+    LengthMenu = Model.RevSliderProductSearchModel.AvailablePageSizes,
+    ColumnCollection = new List<ColumnProperty>
+{
+new ColumnProperty(nameof(RevSliderModel.RevSliderUrlRecordModel.Id))
+{
+Title = T("Admin.System.SeNames.Id").Text
+},
+            new ColumnProperty(nameof(RevSliderModel.RevSliderUrlRecordModel.UrlRecordName))
+            {
+                Title = T("Admin.System.SeNames.Name").Text
+            },
+
+            new ColumnProperty(nameof(RevSliderModel.RevSliderUrlRecordModel.EntityName))
+            {
+                Title = T("Admin.System.SeNames.EntityName").Text,
+                Width = "100"
+            },
+            new ColumnProperty(nameof(RevSliderModel.RevSliderUrlRecordModel.IsActive))
+            {
+                Title = T("Admin.System.SeNames.IsActive").Text,
+                Width = "80",
+                ClassName = NopColumnClassDefaults.CenterAll,
+                Render = new RenderBoolean()
+            },
+            new ColumnProperty(nameof(RevSliderModel.RevSliderUrlRecordModel.Language))
+            {
+                Title = T("Admin.System.SeNames.Language").Text,
+                Width = "100"
+            },
+
+new ColumnProperty(nameof(RevSliderModel.RevSliderUrlRecordModel.Id))
+{
+Title = T("Admin.Common.Delete").Text,
+Width = "100",
+Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+ClassName = NopColumnClassDefaults.Button
+}
+}
+})
+
+</div>
+
+            <div class="panel-footer">
+                <button type="submit" id="btnAddNewUrlRecord"
+                        onclick="javascript:OpenWindow('@(Url.Action("UrlRecordAddPopup", "RevSlider", new {revSliderId = Model.Id, btnId = "btnRefreshUrlRecords", formId = "revSlider-form"}))', 800, 800, true); return false;"
+                        class="btn btn-primary">
+                    @T("Plugins.Widgets.RevolutionSlider.UrlRecord.AddNew")
+                </button>
+                <input type="submit" id="btnRefreshUrlRecords" style="display: none" />
+                <script>
+                    $(document).ready(function () {
+                        $('#btnRefreshUrlRecords').click(function () {
+                            //refresh grid
+                            updateTable('#urlrecords-grid');
+
+                            //return false to don't reload a page
+                            return false;
+                        });
+                    });
+                </script>
+        </div>
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @T("Plugins.Widgets.RevolutionSlider.SaveBeforeEdit")
+            </div>
+        </div>
+    }

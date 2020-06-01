@@ -1,0 +1,138 @@
+﻿@model RevSliderSearchModel
+@using Nop.Plugin.Widgets.RevolutionSlider.Data;
+@using Nop.Web.Framework;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.UI;
+
+@{
+    Layout = "_AdminLayout";
+}
+@{
+    //page title
+    ViewBag.Title = T("Plugins.Widgets.RevolutionSlider.RevSliders").Text;
+    //active menu item (system name)
+    Html.SetActiveMenuItemSystemName("RevSlider");
+}
+@{
+    const string hideSearchBlockAttributeName = "RevSliderPage.HideSearchBlock";
+    var hideSearchBlock = genericAttributeService.GetAttribute<bool>(workContext.CurrentCustomer, hideSearchBlockAttributeName);
+}
+
+<nop-antiforgery-token />
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("Plugins.Widgets.RevolutionSlider.RevSliders")
+    </h1>
+    <div class="pull-right">
+        <a asp-action="Create" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+       
+
+    </div>
+</div>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="panel-group">
+            <div class="panel panel-default panel-search">
+                <div class="panel-body">
+                    <div class="row search-row @(!hideSearchBlock ? "opened" : "")" data-hideAttribute="@hideSearchBlockAttributeName">
+                        <div class="search-text">@T("Admin.Common.Search")</div>
+                        <div class="icon-search"><i class="fa fa-search" aria-hidden="true"></i></div>
+                        <div class="icon-collapse"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                    </div>
+
+                    <div class="search-body @(hideSearchBlock ? "closed" : "")">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="SearchName" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-editor asp-for="SearchName" />
+                                    </div>
+                                </div>
+                                <div class="form-group" @(Model.HideStoresList ? Html.Raw("style=\"display:none\"") : null)>
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="SearchStoreId" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-select asp-for="SearchStoreId" asp-items="Model.AvailableStores" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <nop-label asp-for="SearchPublishedId" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-select asp-for="SearchPublishedId" asp-items="Model.AvailablePublishedOptions" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-8 col-md-offset-4">
+                                        <button type="button" id="search-revSlider" class="btn btn-primary btn-search"><i class="fa fa-search"></i>@T("Admin.Common.Search")</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @await Html.PartialAsync("Table", new DataTablesModel
+    {
+        Name = "revSliders-grid",
+        UrlRead = new DataUrl("List", "RevSlider", null),
+        SearchButtonId = "search-revSlider",
+        Length = Model.PageSize,
+        LengthMenu = Model.AvailablePageSizes,
+        Filters = new List<FilterParameter>
+                {
+                    new FilterParameter(nameof(Model.SearchName)),
+                    new FilterParameter(nameof(Model.SearchStoreId)),
+                    new FilterParameter(nameof(Model.SearchPublishedId))
+                },
+        ColumnCollection = new List<ColumnProperty>
+                {
+            new ColumnProperty(nameof(RevSliderModel.Name))
+                    {
+                        Title = T("Plugins.Widgets.RevolutionSlider.RevSlider.Fields.Name").Text,
+                        Width = "100",
+                        ClassName = NopColumnClassDefaults.CenterAll
+            },
+
+                    new ColumnProperty(nameof(RevSliderModel.Published))
+                    {
+                        Title = T("Plugins.Widgets.RevolutionSlider.RevSlider.Fields.Published").Text,
+                        Width = "100",
+                        ClassName = NopColumnClassDefaults.CenterAll,
+                        Render = new RenderBoolean()
+                    },
+                    new ColumnProperty(nameof(RevSliderModel.DisplayOrder))
+                    {
+                        Title = T("Plugins.Widgets.RevolutionSlider.RevSlider.Fields.DisplayOrder").Text,
+                        Width = "150",
+                        ClassName =  NopColumnClassDefaults.CenterAll
+                    },
+                    new ColumnProperty(nameof(RevSliderModel.Id))
+                    {
+                        Title = T("Admin.Common.Edit").Text,
+                        Width = "100",
+                        ClassName =  NopColumnClassDefaults.Button,
+                        Render = new RenderButtonEdit(new DataUrl("Edit"))
+                    }
+                }
+    })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
